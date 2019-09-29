@@ -7,5 +7,5 @@ import org.springframework.boot.runApplication
 class DriveApplication
 
 fun main(args: Array<String>) {
-	runApplication<DriveApplication>(*args)
+    runApplication<DriveApplication>(*args)
 }

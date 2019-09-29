@@ -1,0 +1,51 @@
+interface Node {
+    id: String!
+}
+
+type Neuron implements Node {
+    id: String!
+    description(makeUpperCase: Boolean): String
+    connections: [Connection]
+}
+
+type Connection implements Node{
+    id: String!
+    from: String!
+    to: String!
+    weight: Float!
+}
+
+input CreateNeuronInput {
+    description: String
+    connections: [String]
+}
+
+type User {
+    id: ID!
+    name: String!
+    email: String
+    password: String
+}
+
+type SigninPayload {
+    token: String
+    user: User
+}
+
+input AuthData {
+    email: String!
+    password: String!
+}
+
+# The Root Query for the application
+type Query {
+
+}
+
+# The Root Mutation for the application
+type Mutation {
+    createUser(name: String!, authProvider: AuthData!): User
+    signinUser(auth: AuthData): SigninPayload
+
+    createVehicle(name: String): String
+}

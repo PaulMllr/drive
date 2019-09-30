@@ -17,7 +17,7 @@ class UserService {
     private lateinit var userDao: UserDao
 
     fun createUser(name: String, email: String, password: String): User {
-        return userDao.save(User(UUID.randomUUID().toString(), Instant.now(), email, password, name))
+        return userDao.save(User(UUID.randomUUID().toString(), Instant.now(), email, password, name, null, null))
     }
 
     fun existsUserByEmail(email: String): Boolean {

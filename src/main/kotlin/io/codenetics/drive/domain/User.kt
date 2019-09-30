@@ -25,11 +25,14 @@ class User(
         var password: String,
 
         @Column(name = "FULL_NAME")
-        var fullName: String
+        var fullName: String,
+
+        @Column(name = "COUNTRY")
+        var country: String?,
+
+        @Column(name = "CITY")
+        var city: String?
 
 
-) {
-    constructor() : this("", Instant.now(), "", "", "")
 
-
-}
+        )

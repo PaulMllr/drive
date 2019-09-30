@@ -1,4 +1,4 @@
-package io.codenetics.drive.graphql
+package io.codenetics.drive.graphql.context
 
 import graphql.servlet.GraphQLContext
 import io.codenetics.drive.graphql.dto.UserDto

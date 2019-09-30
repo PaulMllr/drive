@@ -1,4 +1,4 @@
-package io.codenetics.drive.graphql
+package io.codenetics.drive.graphql.context
 
 import graphql.GraphQLException
 import graphql.servlet.GraphQLContext

@@ -16,7 +16,7 @@ input AuthData {
 
 # The Root Query for the application
 type Query {
-
+    getUser: User
 }
 
 # The Root Mutation for the application

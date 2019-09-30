@@ -1,24 +1,17 @@
 package io.codenetics.drive.dao
 
-import io.codenetics.drive.graphql.dto.User
-import org.springframework.stereotype.Service
+import io.codenetics.drive.domain.User
+import org.springframework.data.repository.CrudRepository
+import org.springframework.data.repository.Repository
+import org.springframework.transaction.annotation.Transactional
 
 /**
- *  Created by Pavel Laktiushkin on 28.09.2019
+ *  Created by Pavel Laktiushkin on 29.09.2019
  */
-@Service
-class UserDao {
+@Transactional
+interface UserDao : Repository<User, String>, CrudRepository<User, String> {
+    fun findFirstByEmail(username: String): User?
 
+    fun existsByEmail(email: String): Boolean
 
-    fun saveUser(newUser: User): User {
-        return newUser
-    }
-
-    fun findByUsername(username: String): User? {
-        return null
-    }
-
-    fun findByToken(sessionId: String): User? {
-        return User("id1","John Doe","test@test.com","")
-    }
 }

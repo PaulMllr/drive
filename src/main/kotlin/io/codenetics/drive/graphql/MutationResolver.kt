@@ -3,12 +3,13 @@ package io.codenetics.drive.graphql
 import com.coxautodev.graphql.tools.GraphQLMutationResolver
 import graphql.GraphQLException
 import graphql.schema.DataFetchingEnvironment
-import io.codenetics.drive.dao.UserDao
 import io.codenetics.drive.exception.AuthenticationException
+import io.codenetics.drive.exception.GraphQLRequestError
 import io.codenetics.drive.graphql.dto.AuthData
 import io.codenetics.drive.graphql.dto.SigninPayload
 import io.codenetics.drive.graphql.dto.User
 import io.codenetics.drive.service.AuthService
+import io.codenetics.drive.service.UserService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
@@ -20,21 +21,24 @@ import org.springframework.stereotype.Service
 class MutationResolver : GraphQLMutationResolver {
 
     @Autowired
-    private lateinit var userDao: UserDao
+    private lateinit var userService: UserService
 
     @Autowired
     private lateinit var authService: AuthService
 
-    fun createUser(name: String, auth: AuthData): User {
-        val newUser = User("", name, auth.email, auth.password)
-        return userDao.saveUser(newUser)
+    fun registerUser(name: String, auth: AuthData): User {
+        if(userService.existsUserByEmail(auth.email)){
+            throw GraphQLRequestError("User with this email is already registered")
+        }
+        val user = userService.createUser(name, auth.email, auth.password)
+        return User(user.id, user.fullName, user.email)
     }
 
-    fun signinUser(auth: AuthData): SigninPayload {
+    fun loginUser(auth: AuthData): SigninPayload {
         try {
             return authService.authenticate(auth.email, auth.password)
         } catch (e: AuthenticationException) {
-            throw GraphQLException("Invalid credentials")
+            throw GraphQLRequestError("Invalid credentials")
         }
     }
 

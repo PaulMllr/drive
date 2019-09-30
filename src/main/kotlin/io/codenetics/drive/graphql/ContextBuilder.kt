@@ -3,8 +3,7 @@ package io.codenetics.drive.graphql
 import graphql.GraphQLException
 import graphql.servlet.GraphQLContext
 import graphql.servlet.GraphQLContextBuilder
-import io.codenetics.drive.dao.UserDao
-import io.codenetics.drive.graphql.dto.User
+import io.codenetics.drive.dao.UserDaoImpl
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 import javax.servlet.http.HttpServletRequest
@@ -18,7 +17,7 @@ import javax.websocket.server.HandshakeRequest
 class ContextBuilder: GraphQLContextBuilder {
 
     @Autowired
-    private lateinit var userDao: UserDao
+    private lateinit var userDao: UserDaoImpl
 
     override fun build(request: HttpServletRequest?): GraphQLContext {
         val sessionId = request?.getHeader("Authorization")?.replace("Bearer ", "")

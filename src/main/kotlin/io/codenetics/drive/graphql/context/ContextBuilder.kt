@@ -26,7 +26,7 @@ class ContextBuilder: GraphQLContextBuilder {
             val sessionOpt = userSessionDao.findById(sessionId)
             if (sessionOpt.isPresent) {
                 val user = sessionOpt.get().user
-                return AuthContext(UserDto(user.id, user.fullName, user.email), request)
+                return AuthContext(user, request)
             }
         }
         return AuthContext(null, request)

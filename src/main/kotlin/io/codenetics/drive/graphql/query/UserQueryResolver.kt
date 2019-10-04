@@ -15,7 +15,7 @@ class UserQueryResolver : GraphQLQueryResolver {
 
     fun getUser(env: DataFetchingEnvironment): UserDto {
         val user = env.getContext<AuthContext>().user ?: throw GraphQLRequestError("Unauthorized")
-        return UserDto(user.id, user.name, user.email)
+        return UserDto(user.id, user.fullName, user.email)
     }
 
 }

@@ -1,10 +1,8 @@
 package io.codenetics.drive.graphql.mutation
 
 import com.coxautodev.graphql.tools.GraphQLMutationResolver
-import graphql.schema.DataFetchingEnvironment
 import io.codenetics.drive.exception.AuthenticationException
 import io.codenetics.drive.exception.GraphQLRequestError
-import io.codenetics.drive.graphql.context.AuthContext
 import io.codenetics.drive.graphql.dto.AuthData
 import io.codenetics.drive.graphql.dto.SigninPayload
 import io.codenetics.drive.graphql.dto.UserDto
@@ -27,7 +25,7 @@ class UserMutationResolver : GraphQLMutationResolver {
     private lateinit var authService: AuthService
 
     fun registerUser(name: String, auth: AuthData): UserDto {
-        if(userService.existsUserByEmail(auth.email)){
+        if (userService.existsUserByEmail(auth.email)) {
             throw GraphQLRequestError("User with this email is already registered")
         }
         val user = userService.createUser(name, auth.email, auth.password)

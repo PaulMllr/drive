@@ -20,6 +20,9 @@ class Vehicle(
         @Column(name = "NAME")
         var name: String,
 
+        @Column(name = "DESCRIPTION", length = 2000)
+        var description: String?,
+
         @ManyToOne(targetEntity = User::class)
         @JoinColumn(name = "OWNER")
         var owner: User,

@@ -12,12 +12,22 @@ type SigninPayload {
 type Vehicle {
     id: ID!
     createdAt: Timestamp
-
+    name: String
+    description: String
+    owner: String!
+    year: Int!
+    ownedSince: Int!
+    ownedTo: Int
+    model: String!
+    generation: String!
+    displacement: Float
+    engineType: String
+    transmission: String
+    driveTrain: String
+    horsepower: Int
 }
 
-type Timestamp{
-    timestamp: Int
-}
+scalar Timestamp
 
 input AuthData {
     email: String!

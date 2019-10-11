@@ -26,9 +26,9 @@ class VehicleMutationResolver(val vehicleService: VehicleService, val vehicleSpe
         val user = env.getContext<AuthContext>().user ?: throw GraphQLRequestError("Unauthorized")
 
         // Validations
-        val manufacturer = vehicleSpecService.getManufacturer(makeId) ?: return null
-        val model = vehicleSpecService.getModel(manufacturer, modelId) ?: return null
-        val generation = vehicleSpecService.getGeneration(model, generationId) ?: return null
+        val manufacturer = vehicleSpecService.getManufacturer(makeId) ?: throw GraphQLRequestError("Manufacturer not found by id")
+        val model = vehicleSpecService.getModel(manufacturer, modelId) ?: throw GraphQLRequestError("Model not found by manufacturer and id")
+        val generation = vehicleSpecService.getGeneration(model, generationId) ?: throw GraphQLRequestError("Generation not found by model and id")
         val vehicle = Vehicle(owner = user, name = name, description = description, year = year, ownedSince = ownedSince, ownedTo = ownedTo,
                 model = model, generation = generation, displacement = displacement, engineType = engineType, transmission = transmission,
                 driveTrain = drivetrain, horsepower = horsepower)

@@ -20,5 +20,9 @@ class Model(
 
         @ManyToOne(targetEntity = Manufacturer::class)
         @JoinColumn(name = "MANUFACTURER")
-        var manufacturer: Manufacturer
+        var manufacturer: Manufacturer,
+
+        @Column(name = "MARKET")
+        @Enumerated(EnumType.STRING)
+        var market: Market
 )

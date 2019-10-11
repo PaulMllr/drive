@@ -1,5 +1,6 @@
 package io.codenetics.drive.graphql.dto
 
+import com.sun.tools.javah.Gen
 import io.codenetics.drive.domain.vehicle.Drivetrain
 import io.codenetics.drive.domain.vehicle.EngineType
 import io.codenetics.drive.domain.vehicle.Transmission
@@ -16,8 +17,8 @@ data class VehicleDto(var id: String,
                       var year: Int,
                       var ownedSince: Int,
                       var ownedTo: Int?,
-                      var model: String,
-                      var generation: String,
+                      var model: ModelDto,
+                      var generation: GenerationDto,
                       var displacement: Float?,
                       var engineType: EngineType?,
                       var transmission: Transmission?,

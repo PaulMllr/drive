@@ -14,6 +14,9 @@ class VehicleSpecService {
     fun getManufacturer(id: String): Manufacturer? {
         return null
     }
+    fun getAllManufacturers(id: String): List<Manufacturer> {
+        return listOf()
+    }
 
     fun getModel(manufacturer: Manufacturer, id: String): Model? {
         return null

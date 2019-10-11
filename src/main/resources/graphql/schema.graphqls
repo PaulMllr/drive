@@ -18,8 +18,8 @@ type Vehicle {
     year: Int!
     ownedSince: Int!
     ownedTo: Int
-    model: String!
-    generation: String!
+    model: Model!
+    generation: Generation!
     displacement: Float
     engineType: EngineType
     transmission: Transmission
@@ -27,7 +27,33 @@ type Vehicle {
     horsepower: Int
 }
 
+type Manufacturer {
+    id: String!
+    name: String!
+}
+
+type Model {
+    id: String!
+    name: String!
+    market: Market
+}
+
+type Generation {
+    id: String!
+    name: String!
+    yearFrom: Int
+    yearTo: Int
+}
+
 scalar Timestamp
+
+enum Market {
+    JDM
+    NORTH_AMERICA
+    EUROPE
+    ASIA
+    AUSTRALIA
+}
 
 enum Drivetrain {
     FWD

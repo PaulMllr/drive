@@ -21,9 +21,9 @@ class VehicleQueryResolver(val vehicleService: VehicleService) : GraphQLQueryRes
 
         return vehicleService.getVehiclesByOwner(user).map {
             VehicleDto(it.id, it.createdAt, it.name, it.description, it.owner.fullName, it.year,
-                    it.ownedSince.atZone(ZoneId.systemDefault()).year, it.ownedTo?.atZone(ZoneId.systemDefault())?.year,
-                    it.model.name, it.generation.name, it.displacement, it.engineType?.uiName, it.transmission?.uiName,
-                    it.driveTrain?.name, it.horsepower)
+                    it.ownedSince, it.ownedTo,
+                    it.model.name, it.generation.name, it.displacement, it.engineType, it.transmission,
+                    it.driveTrain, it.horsepower)
         }
                 .toList()
     }

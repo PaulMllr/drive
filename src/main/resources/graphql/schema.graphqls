@@ -21,13 +21,40 @@ type Vehicle {
     model: String!
     generation: String!
     displacement: Float
-    engineType: String
-    transmission: String
-    driveTrain: String
+    engineType: EngineType
+    transmission: Transmission
+    drivetrain: Drivetrain
     horsepower: Int
 }
 
 scalar Timestamp
+
+enum Drivetrain {
+    FWD
+    RWD
+    AWD
+}
+
+enum EngineType {
+    I2
+    I3
+    I4
+    I5
+    I6
+    V6
+    V8
+    V10
+    V12
+    W10
+    W16
+    HYBRID
+    ELECTRIC
+}
+
+enum Transmission {
+    AT
+    MT
+}
 
 input AuthData {
     email: String!
@@ -46,5 +73,17 @@ type Mutation {
     registerUser(name: String!, authProvider: AuthData!): User
     loginUser(auth: AuthData): SigninPayload
 
-    createVehicle(name: String): String
+    createVehicle(name: String,
+        description: String,
+        year: Int!,
+        ownedSince: Int!,
+        ownedTo: Int,
+        makeId: String!,
+        modelId: String!,
+        generationId: String!,
+        displacement: Float,
+        engineType: EngineType,
+        transmission: Transmission,
+        driveTrain: Drivetrain,
+        horsepower: Int): String
 }

@@ -11,6 +11,10 @@ import org.springframework.stereotype.Service
 @Service
 class VehicleService(val vehicleDao: VehicleDao) {
 
+    fun persistVehicle(vehicle: Vehicle): Vehicle {
+        return vehicleDao.save(vehicle)
+    }
+
     fun getVehiclesByOwner(owner: User): List<Vehicle> {
         return vehicleDao.findByOwner(owner)
     }

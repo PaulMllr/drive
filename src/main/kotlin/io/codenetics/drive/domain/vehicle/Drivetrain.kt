@@ -1,5 +1,5 @@
 package io.codenetics.drive.domain.vehicle
 
-enum class DriveTrain {
+enum class Drivetrain {
     FWD, RWD, AWD
 }

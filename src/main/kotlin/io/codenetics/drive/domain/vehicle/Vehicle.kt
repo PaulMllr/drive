@@ -1,7 +1,9 @@
 package io.codenetics.drive.domain.vehicle
 
 import io.codenetics.drive.domain.User
+import org.springframework.data.annotation.CreatedDate
 import java.time.Instant
+import java.util.*
 import javax.persistence.*
 
 
@@ -12,13 +14,14 @@ class Vehicle(
 
         @Id
         @Column(name = "ID")
-        var id: String,
+        var id: String = UUID.randomUUID().toString(),
 
         @Column(name = "CREATED_AT")
-        var createdAt: Instant,
+        @CreatedDate
+        var createdAt: Instant = Instant.now(),
 
         @Column(name = "NAME")
-        var name: String,
+        var name: String?,
 
         @Column(name = "DESCRIPTION", length = 2000)
         var description: String?,
@@ -31,10 +34,10 @@ class Vehicle(
         var year: Int,
 
         @Column(name = "OWNED_SINCE")
-        var ownedSince: Instant,
+        var ownedSince: Int,
 
         @Column(name = "OWNED_TO")
-        var ownedTo: Instant?,
+        var ownedTo: Int?,
 
         @ManyToOne(targetEntity = Model::class)
         @JoinColumn(name = "MODEL")
@@ -57,7 +60,7 @@ class Vehicle(
 
         @Column(name = "DRIVETRAIN")
         @Enumerated(EnumType.STRING)
-        var driveTrain: DriveTrain?,
+        var driveTrain: Drivetrain?,
 
         @Column(name = "HORSEPOWER")
         var horsepower: Int?

@@ -27,7 +27,7 @@ class VehicleQueryResolver(val vehicleService: VehicleService) : GraphQLQueryRes
 
     private fun vehicleToDto(vehicle: Vehicle): VehicleDto = VehicleDto(vehicle.id, vehicle.createdAt, vehicle.name,
             vehicle.description, vehicle.owner.fullName, vehicle.year, vehicle.ownedSince, vehicle.ownedTo,
-            ModelDto(vehicle.model.id, vehicle.model.name, vehicle.model.market),
+            ModelDto(vehicle.model.id, vehicle.model.name, vehicle.model.market, emptyList()),
             GenerationDto(vehicle.generation.id, vehicle.generation.name, vehicle.generation.yearStart, vehicle.generation.yearEnd),
             vehicle.displacement, vehicle.engineType, vehicle.transmission,
             vehicle.driveTrain, vehicle.horsepower)

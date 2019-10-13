@@ -30,12 +30,14 @@ type Vehicle {
 type Manufacturer {
     id: String!
     name: String!
+    models: [Model]
 }
 
 type Model {
     id: String!
     name: String!
     market: Market
+    generations: [Generation]
 }
 
 type Generation {
@@ -92,6 +94,11 @@ type Query {
     getUser: User
 
     getOwnVehicles: [Vehicle]
+
+    getManufacturers: [Manufacturer]
+    getModels(manufacturerId: String!, market: Market): [Model]
+    getGenerations(modelId: String!): [Generation]
+
 }
 
 # The Root Mutation for the application

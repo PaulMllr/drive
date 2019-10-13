@@ -1,6 +1,5 @@
 package io.codenetics.drive.graphql.dto
 
-import com.sun.tools.javah.Gen
 import io.codenetics.drive.domain.vehicle.Drivetrain
 import io.codenetics.drive.domain.vehicle.EngineType
 import io.codenetics.drive.domain.vehicle.Transmission

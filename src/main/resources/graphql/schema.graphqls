@@ -111,8 +111,6 @@ type Mutation {
         year: Int!,
         ownedSince: Int!,
         ownedTo: Int,
-        makeId: String!,
-        modelId: String!,
         generationId: String!,
         displacement: Float,
         engineType: EngineType,

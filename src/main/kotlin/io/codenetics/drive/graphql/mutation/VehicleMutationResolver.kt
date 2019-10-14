@@ -20,17 +20,15 @@ import org.springframework.stereotype.Service
 class VehicleMutationResolver(val vehicleService: VehicleService, val vehicleSpecService: VehicleSpecService) : GraphQLMutationResolver {
 
 
-    fun createVehicle(name: String?, description: String?, year: Int, ownedSince: Int, ownedTo: Int?, makeId: String, modelId: String,
+    fun createVehicle(name: String?, description: String?, year: Int, ownedSince: Int, ownedTo: Int?,
                       generationId: String, displacement: Float?, engineType: EngineType?, transmission: Transmission?, drivetrain: Drivetrain?,
                       horsepower: Int?, env: DataFetchingEnvironment): String? {
         val user = env.getContext<AuthContext>().user ?: throw GraphQLRequestError("Unauthorized")
 
         // Validations
-        val manufacturer = vehicleSpecService.getManufacturer(makeId) ?: throw GraphQLRequestError("Manufacturer not found by id")
-        val model = vehicleSpecService.getModel(manufacturer, modelId) ?: throw GraphQLRequestError("Model not found by manufacturer and id")
-        val generation = vehicleSpecService.getGeneration(model, generationId) ?: throw GraphQLRequestError("Generation not found by model and id")
+        val generation = vehicleSpecService.getGeneration(generationId) ?: throw GraphQLRequestError("Vehicle generation not found by id")
         val vehicle = Vehicle(owner = user, name = name, description = description, year = year, ownedSince = ownedSince, ownedTo = ownedTo,
-                model = model, generation = generation, displacement = displacement, engineType = engineType, transmission = transmission,
+                model = generation.model, generation = generation, displacement = displacement, engineType = engineType, transmission = transmission,
                 driveTrain = drivetrain, horsepower = horsepower)
 
         val result = vehicleService.persistVehicle(vehicle)

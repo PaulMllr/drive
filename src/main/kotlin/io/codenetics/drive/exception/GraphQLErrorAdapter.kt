@@ -1,48 +1,33 @@
-package io.codenetics.drive.exception;
+package io.codenetics.drive.exception
 
-import graphql.ErrorType;
-import graphql.ExceptionWhileDataFetching;
-import graphql.GraphQLError;
-import graphql.language.SourceLocation;
+import graphql.ErrorType
+import graphql.ExceptionWhileDataFetching
+import graphql.GraphQLError
+import graphql.language.SourceLocation
 
-import java.util.List;
-import java.util.Map;
+class GraphQLErrorAdapter(private val error: GraphQLError) : GraphQLError {
 
-public class GraphQLErrorAdapter implements GraphQLError {
-
-    private GraphQLError error;
-
-    public GraphQLErrorAdapter(GraphQLError error) {
-        this.error = error;
+    override fun getExtensions(): Map<String, Any>? {
+        return error.extensions
     }
 
-    @Override
-    public Map<String, Object> getExtensions() {
-        return error.getExtensions();
+    override fun getLocations(): List<SourceLocation>? {
+        return error.locations
     }
 
-    @Override
-    public List<SourceLocation> getLocations() {
-        return error.getLocations();
+    override fun getErrorType(): ErrorType? {
+        return error.errorType
     }
 
-    @Override
-    public ErrorType getErrorType() {
-        return error.getErrorType();
+    override fun getPath(): List<Any>? {
+        return error.path
     }
 
-    @Override
-    public List<Object> getPath() {
-        return error.getPath();
+    override fun toSpecification(): Map<String, Any>? {
+        return error.toSpecification()
     }
 
-    @Override
-    public Map<String, Object> toSpecification() {
-        return error.toSpecification();
-    }
-
-    @Override
-    public String getMessage() {
-        return (error instanceof ExceptionWhileDataFetching) ? ((ExceptionWhileDataFetching) error).getException().getMessage() : error.getMessage();
+    override fun getMessage(): String? {
+        return if (error is ExceptionWhileDataFetching) error.exception.message else error.message
     }
 }

@@ -32,8 +32,8 @@ class VehicleSpecService(val manufacturerDao: ManufacturerDao, private val model
         return modelDao.findByIdOrNull(id)
     }
 
-    fun getGeneration(model: Model, id: String): Generation? {
-        return generationDao.findFirstByIdAndModel(id, model)
+    fun getGeneration(id: String): Generation? {
+        return generationDao.findByIdOrNull(id)
     }
 
     fun getModels(manufacturer: Manufacturer, market: Market?): List<Model> {

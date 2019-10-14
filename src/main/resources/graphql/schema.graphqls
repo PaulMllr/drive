@@ -18,8 +18,10 @@ type Vehicle {
     year: Int!
     ownedSince: Int!
     ownedTo: Int
-    model: Model!
-    generation: Generation!
+    market: Market
+    manufacturer: String!
+    model: String!
+    generation: String!
     displacement: Float
     engineType: EngineType
     transmission: Transmission

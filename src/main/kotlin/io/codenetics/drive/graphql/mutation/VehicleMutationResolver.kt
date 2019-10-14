@@ -8,6 +8,7 @@ import io.codenetics.drive.domain.vehicle.Transmission
 import io.codenetics.drive.domain.vehicle.Vehicle
 import io.codenetics.drive.exception.GraphQLRequestError
 import io.codenetics.drive.graphql.context.AuthContext
+import io.codenetics.drive.service.BlogService
 import io.codenetics.drive.service.VehicleService
 import io.codenetics.drive.service.VehicleSpecService
 import org.springframework.stereotype.Service
@@ -17,7 +18,9 @@ import org.springframework.stereotype.Service
  *  Created by Pavel Laktiushkin on 14.03.2019
  */
 @Service
-class VehicleMutationResolver(val vehicleService: VehicleService, val vehicleSpecService: VehicleSpecService) : GraphQLMutationResolver {
+class VehicleMutationResolver(val vehicleService: VehicleService,
+                              val vehicleSpecService: VehicleSpecService,
+                              val blogService: BlogService) : GraphQLMutationResolver {
 
 
     fun createVehicle(name: String?, description: String?, year: Int, ownedSince: Int, ownedTo: Int?,
@@ -34,5 +37,12 @@ class VehicleMutationResolver(val vehicleService: VehicleService, val vehicleSpe
         val result = vehicleService.persistVehicle(vehicle)
 
         return result.id
+    }
+
+    fun createVehiclePost(vehicleId: String, message: String, env: DataFetchingEnvironment): Boolean {
+        val user = env.getContext<AuthContext>().user ?: throw GraphQLRequestError("Unauthorized")
+        val vehicle = vehicleService.getVehicleByIdAndOwner(vehicleId, user) ?: throw GraphQLRequestError("Vehicle not found")
+        blogService.createVehicleBlogPost(vehicle, message)
+        return true
     }
 }

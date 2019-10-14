@@ -1,6 +1,7 @@
 package io.codenetics.drive.domain.vehicle
 
 import io.codenetics.drive.domain.User
+import io.codenetics.drive.domain.blog.BlogPost
 import org.springframework.data.annotation.CreatedDate
 import java.time.Instant
 import java.util.*
@@ -63,6 +64,9 @@ class Vehicle(
         var driveTrain: Drivetrain?,
 
         @Column(name = "HORSEPOWER")
-        var horsepower: Int?
+        var horsepower: Int?,
+
+        @OneToMany(mappedBy = "vehicle", targetEntity = BlogPost::class, cascade = [CascadeType.ALL], orphanRemoval = true, fetch = FetchType.LAZY)
+        var blogPosts: List<BlogPost> = emptyList()
 
 )

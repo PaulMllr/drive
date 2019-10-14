@@ -11,7 +11,7 @@ type SigninPayload {
 
 type Vehicle {
     id: ID!
-    createdAt: Timestamp
+    createdAt: Timestamp!
     name: String
     description: String
     owner: String!
@@ -29,6 +29,19 @@ type Vehicle {
     horsepower: Int
 }
 
+# Vehicle blog
+type VehicleBlog {
+    vehicle:Vehicle
+    posts:[BlogPost]
+}
+
+type BlogPost {
+    user:User!
+    createdAt: Timestamp!
+    message:String!
+}
+
+# Vehicle spec data
 type Manufacturer {
     id: String!
     name: String!
@@ -95,12 +108,16 @@ input AuthData {
 type Query {
     getUser: User
 
+    getVehicle(id: String!): Vehicle
     getOwnVehicles: [Vehicle]
 
+    # Vehicle spec queries
     getManufacturers: [Manufacturer]
     getModels(manufacturerId: String!, market: Market): [Model]
     getGenerations(modelId: String!): [Generation]
 
+    # Vehicle blog queries
+    getVehicleBlog(vehicleId: String!, pageNum: Int!, pageSize: Int!): VehicleBlog!
 }
 
 # The Root Mutation for the application
@@ -119,4 +136,6 @@ type Mutation {
         transmission: Transmission,
         driveTrain: Drivetrain,
         horsepower: Int): String
+
+    createVehiclePost(vehicleId: String, message:String): Boolean
 }

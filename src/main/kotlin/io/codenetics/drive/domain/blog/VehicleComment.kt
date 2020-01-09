@@ -12,8 +12,8 @@ import javax.persistence.*
  */
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-@Table(name = "POST_COMMENT")
-class PostComment(
+@Table(name = "VEHICLE_COMMENT")
+class VehicleComment(
 
         @Id
         @Column(name = "ID")
@@ -30,13 +30,14 @@ class PostComment(
         @JoinColumn(name = "WRITTEN_BY")
         var writtenBy: User,
 
-        @ManyToOne(targetEntity = BlogPost::class)
-        @JoinColumn(name = "BLOG_POST")
-        var blogPost: BlogPost,
 
-        @ManyToOne(targetEntity = PostComment::class)
+        @ManyToOne(targetEntity = Vehicle::class)
+        @JoinColumn(name = "VEHICLE")
+        var vehicle: Vehicle,
+
+        @ManyToOne(targetEntity = VehicleComment::class)
         @JoinColumn(name = "PARENT")
-        var parent: PostComment?
+        var parent: VehicleComment?
 
 
 )

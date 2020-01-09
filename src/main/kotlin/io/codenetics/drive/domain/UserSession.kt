@@ -21,5 +21,4 @@ class UserSession(
         @JoinColumn(name = "USER")
         var user: User
 
-
 )

@@ -134,7 +134,7 @@ type Mutation {
         displacement: Float,
         engineType: EngineType,
         transmission: Transmission,
-        driveTrain: Drivetrain,
+        drivetrain: Drivetrain,
         horsepower: Int): String
 
     createVehiclePost(vehicleId: String, message:String): Boolean

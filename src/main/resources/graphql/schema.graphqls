@@ -123,7 +123,7 @@ type Query {
 # The Root Mutation for the application
 type Mutation {
     registerUser(name: String!, authProvider: AuthData!): User
-    loginUser(auth: AuthData): SigninPayload
+    loginUser(auth: AuthData!): SigninPayload
 
     createVehicle(name: String,
         description: String,
@@ -137,5 +137,7 @@ type Mutation {
         drivetrain: Drivetrain,
         horsepower: Int): String
 
-    createVehiclePost(vehicleId: String, message:String): Boolean
+    createVehiclePost(vehicleId: String!, message:String!): String
+
+    createVehicleComment(vehicleId: String!, message: String!, parentComment: String): String
 }

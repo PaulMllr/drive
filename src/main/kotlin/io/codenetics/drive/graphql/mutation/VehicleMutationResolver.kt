@@ -39,10 +39,4 @@ class VehicleMutationResolver(val vehicleService: VehicleService,
         return result.id
     }
 
-    fun createVehiclePost(vehicleId: String, message: String, env: DataFetchingEnvironment): Boolean {
-        val user = env.getContext<AuthContext>().user ?: throw GraphQLRequestError("Unauthorized")
-        val vehicle = vehicleService.getVehicleByIdAndOwner(vehicleId, user) ?: throw GraphQLRequestError("Vehicle not found")
-        blogService.createVehicleBlogPost(vehicle, message)
-        return true
-    }
 }

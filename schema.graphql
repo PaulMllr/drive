@@ -1,0 +1,135 @@
+# This file was generated based on ".graphqlconfig". Do not edit manually.
+
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+type BlogPost {
+  createdAt: Timestamp!
+  message: String!
+  user: User!
+}
+
+type Generation {
+  id: String!
+  name: String!
+  yearFrom: Int
+  yearTo: Int
+}
+
+"Vehicle spec data"
+type Manufacturer {
+  id: String!
+  models: [Model]
+  name: String!
+}
+
+type Model {
+  generations: [Generation]
+  id: String!
+  market: Market
+  name: String!
+}
+
+"The Root Mutation for the application"
+type Mutation {
+  createVehicle(description: String, displacement: Float, drivetrain: Drivetrain, engineType: EngineType, generationId: String!, horsepower: Int, name: String, ownedSince: Int!, ownedTo: Int, transmission: Transmission, year: Int!): String
+  createVehicleComment(message: String!, parentComment: String, vehicleId: String!): String
+  createVehiclePost(message: String!, vehicleId: String!): String
+  loginUser(auth: AuthData!): SigninPayload
+  registerUser(authProvider: AuthData!, name: String!): User
+}
+
+"The Root Query for the application"
+type Query {
+  getGenerations(modelId: String!): [Generation]
+  "Vehicle spec queries"
+  getManufacturers: [Manufacturer]
+  getModels(manufacturerId: String!, market: Market): [Model]
+  getOwnVehicles: [Vehicle]
+  getUser: User
+  getVehicle(id: String!): Vehicle
+  "Vehicle blog queries"
+  getVehicleBlog(pageNum: Int!, pageSize: Int!, vehicleId: String!): VehicleBlog!
+}
+
+type SigninPayload {
+  token: String!
+  user: User!
+}
+
+type User {
+  email: String!
+  id: ID!
+  name: String!
+}
+
+type Vehicle {
+  createdAt: Timestamp!
+  description: String
+  displacement: Float
+  drivetrain: Drivetrain
+  engineType: EngineType
+  generation: String!
+  horsepower: Int
+  id: ID!
+  manufacturer: String!
+  market: Market
+  model: String!
+  name: String
+  ownedSince: Int!
+  ownedTo: Int
+  owner: String!
+  transmission: Transmission
+  year: Int!
+}
+
+"Vehicle blog"
+type VehicleBlog {
+  posts: [BlogPost]
+  vehicle: Vehicle
+}
+
+enum Drivetrain {
+  AWD
+  FWD
+  RWD
+}
+
+enum EngineType {
+  ELECTRIC
+  HYBRID
+  I2
+  I3
+  I4
+  I5
+  I6
+  V10
+  V12
+  V6
+  V8
+  W10
+  W16
+}
+
+enum Market {
+  ASIA
+  AUSTRALIA
+  EUROPE
+  JDM
+  NORTH_AMERICA
+}
+
+enum Transmission {
+  AT
+  MT
+}
+
+input AuthData {
+  email: String!
+  password: String!
+}
+
+
+scalar Timestamp
